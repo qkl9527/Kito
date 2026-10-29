@@ -1,0 +1,23 @@
+{
+  "version": "kito 0.1.0",
+  "examples": [
+    {
+      "caption": "Tiko · 同一个时刻，换一个时区",
+      "command": "kito time convert 2024-01-01T00:00:00Z --to-timezone Asia/Shanghai --value-only",
+      "stdout": "2024-01-01T08:00:00+08:00\n",
+      "stderr": ""
+    },
+    {
+      "caption": "Codi · 把文字换一种表示",
+      "command": "kito codec base64 encode '你好，Kito'",
+      "stdout": "5L2g5aW977yMS2l0bw==",
+      "stderr": ""
+    },
+    {
+      "caption": "Sumi · 为内容留下指纹",
+      "command": "kito id hash Kito --algorithm sha256",
+      "stdout": "f7e09c327add41ddd3c8f94fb28cbdf9565567db85e81531a154f6bdb58fb1fe\n",
+      "stderr": ""
+    }
+  ]
+}

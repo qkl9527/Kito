@@ -3,6 +3,7 @@ name = "kito"
 version = "0.1.0"
 edition = "2024"
 description = "Kito 奇托：各有所长，一起把事情做好。跨平台 CLI 工具宇宙。"
+license = "MIT"
 
 [[bin]]
 name = "kito"

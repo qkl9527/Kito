@@ -1,0 +1,111 @@
+name: Build and release tags
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+# 构建只读仓库；仅最终发布作业取得写 Release 所需权限。
+permissions:
+  contents: read
+
+# 同一 tag 串行处理，避免取消正在上传资产的发布作业。
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check release safety and tag version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python -m unittest discover -s scripts -p 'release_test.py'
+          python scripts/release.py validate --tag "$RELEASE_TAG"
+
+  build:
+    needs: validate
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-15
+            target: aarch64-apple-darwin
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+          - os: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-gnu
+          - os: ubuntu-24.04
+            target: x86_64-unknown-linux-gnu
+          - os: windows-2025
+            target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify and build native binary
+        env:
+          RELEASE_TARGET: ${{ matrix.target }}
+        run: |
+          cargo fmt --check
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo test --locked
+          cargo build --locked --release --target "$RELEASE_TARGET"
+      - name: Check binary version and package
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TARGET: ${{ matrix.target }}
+        run: python scripts/release.py package --tag "$RELEASE_TAG" --target "$RELEASE_TARGET" --output dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+          # 仅替换本次 workflow 的临时 artifact，支持重跑失败的构建；不覆盖 Release。
+          overwrite: true
+
+  publish:
+    needs: [validate, build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          path: artifacts
+      - name: Verify all assets, then publish a complete release
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/release.py publish --tag "$RELEASE_TAG" --artifacts artifacts --output dist
