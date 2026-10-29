@@ -875,13 +875,8 @@ fn regression_snapshot_treats_pattern_characters_as_a_literal_single_file() {
     let input = temp.path().join("source.mp4");
     backends.fixture(&input, "160x120", "0.6", false);
     let expected_pixels = backends.pixels(&input, "0.2");
-    for name in [
-        // %03d 在各平台都合法，却会触发 image2 的图片序列自动探测。
-        "frames%03d",
-        // Windows 的 canonicalize 前缀自带 '?'；Unix 用目录名复现相同的格式误选。
-        #[cfg(unix)]
-        "frames?",
-    ] {
+    // 按平台直接调用共享断言，避免 cfg 裁剪后留下单元素循环。
+    let check_snapshot = |name: &str| {
         let directory = temp.path().join(name);
         std::fs::create_dir(&directory).unwrap();
         let output = directory.join("frame.png");
@@ -913,7 +908,12 @@ fn regression_snapshot_treats_pattern_characters_as_a_literal_single_file() {
         success(&decoded);
         assert_eq!(decoded.stdout, expected_pixels, "{name}");
         assert_eq!(std::fs::read_dir(&directory).unwrap().count(), 1);
-    }
+    };
+    // %03d 在各平台都合法，却会触发 image2 的图片序列自动探测。
+    check_snapshot("frames%03d");
+    // Windows 的 canonicalize 前缀自带 '?'；Unix 用目录名复现相同的格式误选。
+    #[cfg(unix)]
+    check_snapshot("frames?");
 }
 
 #[test]
