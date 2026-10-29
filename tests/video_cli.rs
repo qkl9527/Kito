@@ -867,6 +867,56 @@ fn real_audio_operations_change_samples_and_keep_video_duration() {
 }
 
 #[test]
+fn regression_snapshot_treats_pattern_characters_as_a_literal_single_file() {
+    let Some(backends) = Backends::discover() else {
+        return;
+    };
+    let temp = tempfile::tempdir().unwrap();
+    let input = temp.path().join("source.mp4");
+    backends.fixture(&input, "160x120", "0.6", false);
+    let expected_pixels = backends.pixels(&input, "0.2");
+    for name in [
+        // %03d 在各平台都合法，却会触发 image2 的图片序列自动探测。
+        "frames%03d",
+        // Windows 的 canonicalize 前缀自带 '?'；Unix 用目录名复现相同的格式误选。
+        #[cfg(unix)]
+        "frames?",
+    ] {
+        let directory = temp.path().join(name);
+        std::fs::create_dir(&directory).unwrap();
+        let output = directory.join("frame.png");
+        let result = backends.cli(&[
+            "video",
+            "snapshot",
+            p(&input),
+            "--at",
+            "0.2",
+            "-o",
+            p(&output),
+            "--json",
+        ]);
+        success(&result);
+        let report: Value = serde_json::from_slice(&result.stdout).unwrap();
+        assert_eq!(report["verified_decodable"], true, "{report}");
+        assert_eq!(report["output_info"]["format"], "png_pipe", "{report}");
+        assert_eq!(report["output_info"]["streams"][0]["codec"], "png");
+        assert_eq!(report["output_info"]["streams"][0]["width"], 160);
+        assert_eq!(report["output_info"]["streams"][0]["height"], 120);
+
+        // 独立读取最终文件，确认像素正确；显式单文件 demuxer 不展开目录中的模式字符。
+        let decoded = Command::new(&backends.ffmpeg)
+            .args(["-v", "error", "-nostdin", "-xerror", "-f", "png_pipe", "-i"])
+            .arg(&output)
+            .args(["-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"])
+            .output()
+            .unwrap();
+        success(&decoded);
+        assert_eq!(decoded.stdout, expected_pixels, "{name}");
+        assert_eq!(std::fs::read_dir(&directory).unwrap().count(), 1);
+    }
+}
+
+#[test]
 fn real_snapshot_and_gif_have_expected_pixels_and_timing() {
     let Some(backends) = Backends::discover() else {
         return;

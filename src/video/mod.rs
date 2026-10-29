@@ -289,8 +289,12 @@ pub(super) fn execute(plan: Plan, opts: &OutputArgs) -> Result<bool> {
         candidate.as_file().metadata()?.len() > 0,
         "后端生成了空文件"
     );
-    let mut info =
-        probe::probe(&candidate_path, timeout(opts)).context("输出媒体探测失败，未发布结果")?;
+    // snapshot 固定编码 PNG。Windows 的 \\?\ 前缀（以及文件名中的 ?、%03d）
+    // 会让 FFmpeg 在读取内容前把它当成 image2 序列；显式用单文件 png_pipe，
+    // 同时供探测和完整解码使用。不能放开 image2，也不能按用户提供的扩展名信任格式。
+    let output_demuxer = (plan.operation == "snapshot").then_some("png_pipe");
+    let mut info = probe::probe_with_demuxer(&candidate_path, timeout(opts), output_demuxer)
+        .context("输出媒体探测失败，未发布结果")?;
     ensure!(
         info.video().is_some() == plan.expect_video,
         "输出视频轨道与预期不符，未发布结果"
@@ -301,6 +305,9 @@ pub(super) fn execute(plan: Plan, opts: &OutputArgs) -> Result<bool> {
     );
     // ffprobe 只读取结构，不足以证明完整文件可播放；解码所有输出音视频帧并使解码错误返回失败。
     let mut check = base_args();
+    if let Some(demuxer) = output_demuxer {
+        push(&mut check, &["-f", demuxer]);
+    }
     input_args(&mut check, &candidate_path);
     push(
         &mut check,

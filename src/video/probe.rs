@@ -272,6 +272,16 @@ fn progress_duration(bytes: &[u8], video: bool) -> Result<f64> {
 }
 
 pub fn probe(path: &Path, timeout: Duration) -> Result<MediaInfo> {
+    probe_with_demuxer(path, timeout, None)
+}
+
+/// 仅供内部验证已知编码格式的候选输出；普通用户输入继续按内容自动探测。
+/// 即使显式指定格式，协议和 demuxer 白名单也不能省略。
+pub(super) fn probe_with_demuxer(
+    path: &Path,
+    timeout: Duration,
+    demuxer: Option<&str>,
+) -> Result<MediaInfo> {
     let path = input_path(path)?;
     let size_bytes = path.metadata()?.len();
     // 协议和 demuxer 双重白名单：阻止网络访问，也阻止播放列表读取其他本地文件。
@@ -286,11 +296,14 @@ pub fn probe(path: &Path, timeout: Duration) -> Result<MediaInfo> {
         "-show_streams",
         "-of",
         "json",
-        "-i",
     ]
     .into_iter()
     .map(Into::into)
     .collect();
+    if let Some(demuxer) = demuxer {
+        args.extend([OsString::from("-f"), OsString::from(demuxer)]);
+    }
+    args.push("-i".into());
     args.push(path.as_os_str().to_owned());
     let output = run_backend("KITO_FFPROBE", "ffprobe", &args, timeout)?;
     parse_metadata(path, size_bytes, &output.stdout)
