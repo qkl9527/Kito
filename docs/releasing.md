@@ -43,7 +43,7 @@
 - **外部后端未打包**：ImageMagick、zopflipng、OpenSSL 3.x、FFmpeg / ffprobe 仍按所用能力单独安装。参考各工具文档中的环境变量与 doctor 检查。声音合成不依赖外部媒体后端。
 - **Linux**：使用 Ubuntu 24.04 的 GNU/glibc 工具链，不是 musl 静态包；不承诺兼容更旧的 glibc、Alpine 或所有 Linux 发行版。
 - **macOS 与 Windows**：本流程不提供 Developer ID 签名、公证或 Authenticode 签名；下载后仍可能受到操作系统安全检查。Windows ARM64、Windows x86 和其他 CPU 架构未提供独立产物。
-- **验证边界**：每个平台的构建作业安装 ImageMagick 7、OpenSSL 3.x、FFmpeg / ffprobe，并设置 `KITO_REQUIRE_BACKEND=1`，运行 fmt、clippy、测试、`cargo build --locked --release`、二进制版本与帮助检查。任何平台检查或构建失败都会阻止发布，不再有另一套独立 CI 重复构建。这里只列出配置目标，只有对应 GitHub run 实际成功才构成该平台的运行证据，也不代表所有操作系统版本兼容。
+- **验证边界**：每个平台先运行发布脚本的离线测试，再安装 ImageMagick 7、OpenSSL 3.x、FFmpeg / ffprobe，并设置 `KITO_REQUIRE_BACKEND=1`，运行 fmt、clippy、测试、`cargo build --locked --release`、二进制版本与帮助检查。任何平台检查或构建失败都会阻止发布，不再有另一套独立 CI 重复构建。这里只列出配置目标，只有对应 GitHub run 实际成功才构成该平台的运行证据，也不代表所有操作系统版本兼容。
 
 ## 下载后校验
 
@@ -72,10 +72,12 @@ macOS 可运行 `shasum -a 256 kito-v0.1.0-aarch64-apple-darwin.tar.gz`，Window
 ## 离线验证发布辅助脚本
 
 ```sh
-python3 -m unittest discover -s scripts -p 'release_test.py'
+python3 -X utf8 -m unittest discover -s scripts -p 'release_test.py'
 python3 scripts/release.py validate --tag v0.1.0
 ```
 
-测试覆盖版本拒绝、归档布局、执行权限、完整资产集、摘要损坏、已存在 Release、tag 移动、上传失败不公开，以及 prerelease 标记。测试中的 GitHub 操作全部由 fake 替代，不会发出真实发布请求。
+测试覆盖版本拒绝、归档布局、Unix 执行权限、完整资产集、摘要损坏、已存在 Release、tag 移动、上传失败不公开，以及 prerelease 标记。另以子进程强制 `cp1252` 标准流，验证中文帮助、成功日志、异常诊断与中文目录 ZIP 打包。测试中的 GitHub 操作全部由 fake 替代，不会发出真实发布请求。
+
+工作流统一设置 `PYTHONUTF8=1`；发布脚本入口也将 stdout/stderr 显式设置为 UTF-8，避免 Windows 重定向日志时因系统代码页无法输出中文而报错。
 
 工作流使用 Node.js 24 版本的官方 Actions：`checkout@v7`、`setup-python@v7`、`upload-artifact@v7` 与 `download-artifact@v8`。Runner 与 API 行为参考 [GitHub-hosted runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)、[upload-artifact v7](https://github.com/actions/upload-artifact/tree/v7)、[download-artifact v8](https://github.com/actions/download-artifact/tree/v8) 和 [GitHub Release REST API](https://docs.github.com/en/rest/releases/releases)。

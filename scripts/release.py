@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tarfile
 import tempfile
 import tomllib
@@ -68,12 +69,12 @@ def archive_name(tag, target):
 def package(tag, target, output, root=ROOT):
     version, _ = validate_version(tag, root)
     # 显式核对 host，避免未来矩阵修改后误把交叉构建当作 native 验证。
-    rustc = subprocess.check_output(["rustc", "-vV"], text=True)
+    rustc = subprocess.check_output(["rustc", "-vV"], encoding="utf-8")
     if f"host: {target}" not in rustc.splitlines():
         raise ValueError(f"runner 的 Rust host 与目标 {target} 不一致")
     binary_name = "kito.exe" if target.endswith("windows-msvc") else "kito"
     binary = root / "target" / target / "release" / binary_name
-    actual = subprocess.check_output([str(binary), "--version"], text=True).strip()
+    actual = subprocess.check_output([str(binary), "--version"], encoding="utf-8").strip()
     if actual != f"kito {version}":
         raise ValueError(f"二进制版本不一致：{actual!r}，期望 kito {version}")
     subprocess.run([str(binary), "--help"], check=True, stdout=subprocess.DEVNULL)
@@ -232,6 +233,10 @@ def publish_release(api, tag, commit, assets):
 
 
 def main():
+    # Windows 重定向到 Actions 日志时可能使用 cp1252，中文完成日志也会使成功打包报错。
+    # 在 argparse 前统一标准流，覆盖帮助、成功日志和异常诊断；异常路径字节保留转义形式。
+    sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="backslashreplace")
     parser = argparse.ArgumentParser(description=__doc__)
     subcommands = parser.add_subparsers(dest="command", required=True)
     for command in ("validate", "package", "publish"):

@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+# Python 的日志和默认文本解码不依赖 runner 的系统代码页。
+env:
+  PYTHONUTF8: '1'
+
 # 同一 tag 串行处理，避免取消正在上传资产的发布作业。
 concurrency:
   group: release-${{ github.ref }}
@@ -69,6 +73,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+      - name: Verify release tooling on the native platform
+        run: python -m unittest discover -s scripts -p 'release_test.py'
       - name: ImageMagick 7 on macOS
         if: runner.os == 'macOS'
         run: brew install imagemagick

@@ -1,6 +1,10 @@
 """发布链路的离线测试；所有 GitHub 写操作均由内存 fake 替代。"""
 
+import os
 from pathlib import Path
+import shutil
+import subprocess
+import sys
 import tarfile
 import tempfile
 import unittest
@@ -76,6 +80,62 @@ class ReleaseTests(unittest.TestCase):
             )
         return artifacts
 
+    def run_cli_with_legacy_encoding(self, *arguments, mock_binary=False):
+        # 子进程模拟 Windows 重定向日志的 cp1252；不修改测试进程的标准流。
+        script = self.root / "scripts" / "release.py"
+        script.parent.mkdir(exist_ok=True)
+        shutil.copy2(release.__file__, script)
+        command = [sys.executable, str(script), *map(str, arguments)]
+        if mock_binary:
+            # 仅替代 Rust host/二进制执行，打包、摘要和 CLI 日志均走真实实现。
+            driver = '''
+import runpy
+import sys
+from unittest.mock import patch
+sys.argv = sys.argv[1:]
+with patch("subprocess.check_output", side_effect=["host: x86_64-pc-windows-msvc", "kito 0.1.0"]), patch("subprocess.run"):
+    runpy.run_path(sys.argv[0], run_name="__main__")
+'''
+            command = [sys.executable, "-c", driver, *command[1:]]
+        environment = dict(os.environ, PYTHONUTF8="0", PYTHONIOENCODING="cp1252:strict")
+        return subprocess.run(command, env=environment, capture_output=True)
+
+    def test_cli_outputs_utf8_with_legacy_windows_stream_encoding(self):
+        for arguments, code, stream, expected in [
+            (["validate", "--tag", TAG], 0, "stdout", f"版本一致：{TAG}"),
+            (["--help"], 0, "stdout", "验证版本、打包和发布 Kito"),
+            (["validate", "--tag", "bad-tag"], 1, "stderr", "tag 必须为 v<semver>"),
+        ]:
+            with self.subTest(arguments=arguments):
+                result = self.run_cli_with_legacy_encoding(*arguments)
+                self.assertEqual(result.returncode, code, result.stderr)
+                self.assertIn(expected, getattr(result, stream).decode("utf-8"))
+                self.assertNotIn(b"UnicodeEncodeError", result.stderr)
+
+    def test_package_cli_logs_unicode_paths_after_creating_a_verified_zip(self):
+        target = "x86_64-pc-windows-msvc"
+        binary = self.root / "target" / target / "release" / "kito.exe"
+        binary.parent.mkdir(parents=True)
+        binary.write_bytes(b"binary")
+        for name in ("README.md", "LICENSE"):
+            (self.root / name).write_text("Kito 测试", encoding="utf-8")
+        (self.root / "docs").mkdir()
+        output = self.root / "发布 目录"
+        result = self.run_cli_with_legacy_encoding(
+            "package", "--tag", TAG, "--target", target, "--output", output,
+            mock_binary=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        archive = output / release.archive_name(TAG, target)
+        self.assertIn(f"已验证并打包：{archive}", result.stdout.decode("utf-8"))
+        with zipfile.ZipFile(archive) as bundle:
+            self.assertIsNone(bundle.testzip())
+            self.assertEqual(bundle.read(f"kito-{TAG}-{target}/kito.exe"), b"binary")
+        self.assertEqual(
+            (output / f"{archive.name}.sha256").read_text(encoding="utf-8"),
+            f"{release.checksum(archive)}  {archive.name}\n",
+        )
+
     def test_semver_and_prerelease(self):
         for tag, prerelease in [(TAG, False), ("v1.2.3-rc.1", True), ("v1.2.3+build.01", False)]:
             with self.subTest(tag=tag):
@@ -117,7 +177,9 @@ class ReleaseTests(unittest.TestCase):
             else:
                 with tarfile.open(archive) as bundle:
                     self.assertEqual(bundle.extractfile(f"{top}/{binary_name}").read(), b"binary")
-                    self.assertTrue(bundle.getmember(f"{top}/{binary_name}").mode & 0o111)
+                    # Windows chmod 不模拟 Unix 执行位；实际 Unix runner 仍必须保留它。
+                    if os.name != "nt":
+                        self.assertTrue(bundle.getmember(f"{top}/{binary_name}").mode & 0o111)
                     self.assertEqual(bundle.extractfile(f"{top}/LICENSE").read(), license_text.encode())
             self.assertEqual((output / f"{archive.name}.sha256").read_text(), f"{release.checksum(archive)}  {archive.name}\n")
 
