@@ -1,6 +1,6 @@
 # Kito 发布流程
 
-推送 `v<semver>` tag 后，GitHub Actions 的 `Build and release tags` 工作流会校验版本、在五个平台原生构建，并将压缩包和 `SHA256SUMS` 发布到同名 GitHub Release。普通分支提交、Pull Request 和本地 tag 不触发发布。
+推送 `v<semver>` tag 后，GitHub Actions 的 `Build and release tags` 工作流会校验版本、安装真实后端、运行检查与测试、在五个平台原生构建，并将压缩包和 `SHA256SUMS` 发布到同名 GitHub Release。仓库只保留这一套构建发布流程：普通分支 push、Pull Request 和本地 tag 均不触发构建或发布，也不提供 `workflow_dispatch` 手动触发入口。
 
 ## 发布前准备
 
@@ -16,7 +16,7 @@
 
    发布脚本需要 Python 3.11 或更新版本。GitHub Actions 固定使用 Python 3.12。真实后端集成验证遵循项目约定，在后端齐备时设置 `KITO_REQUIRE_BACKEND=1`。
 
-3. 确认普通 CI 的五个平台检查通过，再由维护者审阅、提交并推送代码。必须先经过维护者明确确认，自动化代理不得自行 commit、push、打 tag 或发布。
+3. 确认本地检查通过，再由维护者审阅、提交并推送代码。普通代码推送不运行远程构建；五个平台的检查会在推送版本 tag 后执行，全部通过才会发布。必须先经过维护者明确确认，自动化代理不得自行 commit、push、打 tag 或发布。
 4. 确认待发布提交包含 `.github/workflows/release.yml`，版本三处一致。以下命令由维护者在决定发布后执行；请将示例版本替换为实际版本：
 
    ```sh
@@ -43,7 +43,7 @@
 - **外部后端未打包**：ImageMagick、zopflipng、OpenSSL 3.x、FFmpeg / ffprobe 仍按所用能力单独安装。参考各工具文档中的环境变量与 doctor 检查。声音合成不依赖外部媒体后端。
 - **Linux**：使用 Ubuntu 24.04 的 GNU/glibc 工具链，不是 musl 静态包；不承诺兼容更旧的 glibc、Alpine 或所有 Linux 发行版。
 - **macOS 与 Windows**：本流程不提供 Developer ID 签名、公证或 Authenticode 签名；下载后仍可能受到操作系统安全检查。Windows ARM64、Windows x86 和其他 CPU 架构未提供独立产物。
-- **验证边界**：工作流对每个平台运行 fmt、clippy、测试、`cargo build --locked --release`、二进制版本与帮助检查；发布作业不安装全套媒体后端，依赖它们的测试可能跳过。外部后端的强制验证由原有 `Build and verify` CI 负责；发布流程与该 CI 独立，因此维护者应在打 tag 前确认 CI 通过。这里只列出配置目标，只有对应 GitHub run 实际成功才构成该平台的运行证据，也不代表所有操作系统版本兼容。
+- **验证边界**：每个平台的构建作业安装 ImageMagick 7、OpenSSL 3.x、FFmpeg / ffprobe，并设置 `KITO_REQUIRE_BACKEND=1`，运行 fmt、clippy、测试、`cargo build --locked --release`、二进制版本与帮助检查。任何平台检查或构建失败都会阻止发布，不再有另一套独立 CI 重复构建。这里只列出配置目标，只有对应 GitHub run 实际成功才构成该平台的运行证据，也不代表所有操作系统版本兼容。
 
 ## 下载后校验
 

@@ -286,15 +286,15 @@ cargo clippy --locked --all-targets -- -D warnings
 cargo test --locked
 ```
 
-使用仓库独立 Rust 工具链时，将上述 `cargo` 替换为 `scripts/cargo-local.sh`。有 ImageMagick 时转换集成测试会调用真实后端；未安装时跳过依赖后端的测试，仍检查缺失后端错误。设置 `KITO_REQUIRE_BACKEND=1` 会要求后端必须存在，CI 使用该设置。
+使用仓库独立 Rust 工具链时，将上述 `cargo` 替换为 `scripts/cargo-local.sh`。有 ImageMagick 时转换集成测试会调用真实后端；未安装时跳过依赖后端的测试，仍检查缺失后端错误。设置 `KITO_REQUIRE_BACKEND=1` 会要求后端必须存在，tag 发布工作流使用该设置。
 
-CI 配置覆盖 macOS arm64/x86_64、Linux arm64/x86_64、Windows x86_64 的原生构建与测试。本地 macOS 通过不代表远程 CI 已通过。
+tag 发布工作流覆盖 macOS arm64/x86_64、Linux arm64/x86_64、Windows x86_64 的原生构建与测试。本地 macOS 通过不代表远程工作流已通过。
 
 ## tag 自动发布
 
-将版本更新到 `Cargo.toml` 和 `Cargo.lock` 后，推送对应的 `v<版本号>` tag（如 `v0.1.0`），会触发 [Release 工作流](.github/workflows/release.yml)：校验版本、构建五个平台、打包并生成 SHA-256 校验和，全部成功后发布 GitHub Release。带预发布标识的 tag（如 `v0.2.0-rc.1`）会标记为 prerelease。
+将版本更新到 `Cargo.toml` 和 `Cargo.lock` 后，推送对应的 `v<版本号>` tag（如 `v0.1.0`），会触发唯一的 [Release 工作流](.github/workflows/release.yml)：校验版本、安装真实后端、运行检查与测试、构建五个平台、打包并生成 SHA-256 校验和，全部成功后发布 GitHub Release。带预发布标识的 tag（如 `v0.2.0-rc.1`）会标记为 prerelease。
 
-具体命令、权限、失败重试与发布边界见[发布指南](docs/releasing.md)。只提交工作流文件不会创建 Release，推送 tag 才会触发发布。
+普通分支 push、Pull Request、本地创建 tag 均不触发构建或发布，也不提供手动触发入口；只有推送 `v*` tag 才启动流程，版本校验通过后才构建。具体命令、权限、失败重试与发布边界见[发布指南](docs/releasing.md)。
 
 ## 代码结构
 
