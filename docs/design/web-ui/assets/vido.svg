@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <title>Vido 维多，视频伙伴</title>
+  <g stroke="#303530" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m40 90-4 17-11-1m50-23 7 19 11-4M26 53l-13-5-5 7m90 13 10 6 6-5"/>
+    <path d="M27 24c0-11 10-16 19-11l56 33c11 6 11 20 1 27L47 105c-9 5-20 0-20-11Z" fill="#E69B9D"/>
+    <path d="M45 46v7m23-7v7" stroke-width="4.2"/>
+    <path d="M50 68c4 4 10 4 14-1"/>
+    <path d="m37 22 11 6" stroke="#F8D1D1" stroke-width="4"/>
+  </g>
+</svg>

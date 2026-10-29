@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <title>Kavi 卡维，密钥伙伴</title>
+  <g stroke="#303530" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m43 90-5 15-11-1m46-13 5 15 11-3M24 57l-13 4-3-7m88 0 11-7 5 6"/>
+    <path d="M60 11 95 24v35c0 21-16 35-35 44-18-9-35-23-35-44V24Z" fill="#9ABCDC"/>
+    <path d="M47 41v6m26-6v6" stroke-width="4.2"/>
+    <path d="M52 57c4 4 11 4 16-1"/>
+    <path d="M65 74a5 5 0 1 0-10 0c0 2 1 4 3 5l-2 7h8l-2-7c2-1 3-3 3-5Z" fill="#5B80A3" stroke="none"/>
+    <path d="m96 16 4-6m6 15 6-1" stroke="#7297BA"/>
+  </g>
+</svg>

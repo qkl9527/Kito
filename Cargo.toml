@@ -1,0 +1,45 @@
+[package]
+name = "kito"
+version = "0.1.0"
+edition = "2024"
+description = "Kito 奇托：各有所长，一起把事情做好。跨平台 CLI 工具宇宙。"
+
+[[bin]]
+name = "kito"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+chrono-tz = "0.10"
+clap = { version = "4", features = ["derive"] }
+crc32fast = "1"
+oxipng = { version = "=10.2.1", default-features = false, features = ["zopfli"] }
+png = "0.18"
+rayon = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["raw_value"] }
+tempfile = "3"
+walkdir = "2"
+same-file = "1"
+sha2 = "0.10"
+kamadak-exif = "0.6.1"
+base64 = "0.22"
+sha1 = "0.10"
+md-5 = "0.10"
+uuid = "1"
+getrandom = "0.4"
+url = "2.5"
+axum = { version = "0.8", default-features = false, features = ["http1", "json", "query", "tokio"] }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "macros", "signal", "io-util", "time", "sync", "fs"] }
+tokio-util = { version = "0.7", features = ["io"] }
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Security", "Win32_Security_Authorization", "Win32_System_Threading", "Win32_System_Memory", "Win32_Storage_FileSystem", "Win32_System_JobObjects"] }
+
+[profile.release]
+lto = "thin"
+strip = true

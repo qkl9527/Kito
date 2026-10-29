@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <title>Echo 艾可，声音伙伴</title>
+  <g stroke="#303530" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m44 91-7 13-10-3m46-9 7 13 11-4M26 69l-12 4-5-6m84-1 12-7 6 6"/>
+    <path d="M30 54c0-24 9-37 30-37s30 14 30 37v15c0 20-10 29-30 29S30 89 30 69Z" fill="#B6B0DB"/>
+    <path d="M23 54v-9c0-24 15-36 37-36s37 13 37 36v9" stroke-width="5"/>
+    <rect x="19" y="43" width="12" height="30" rx="6" fill="#8C82B6"/>
+    <rect x="89" y="43" width="12" height="30" rx="6" fill="#8C82B6"/>
+    <path d="M47 52v6m26-6v6" stroke-width="4.2"/>
+    <path d="M52 72c5 5 12 4 16-1"/>
+    <path d="m47 85 1 3m7-6v7m8-8v8m7-6v5" stroke="#857BAD" stroke-width="3"/>
+  </g>
+</svg>

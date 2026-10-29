@@ -1,0 +1,891 @@
+{
+  "baselines": [
+    {
+      "bytes_including_original_fallback": 13659,
+      "ctk_bytes_for_same_files": 13649,
+      "engine": "oxipng-o6",
+      "losses": 0,
+      "ties": 5,
+      "total_ms": 147,
+      "valid_files": 10,
+      "wins": 5
+    },
+    {
+      "bytes_including_original_fallback": 13650,
+      "ctk_bytes_for_same_files": 13649,
+      "engine": "oxipng-o6-zopfli",
+      "losses": 0,
+      "ties": 9,
+      "total_ms": 333,
+      "valid_files": 10,
+      "wins": 1
+    },
+    {
+      "bytes_including_original_fallback": 13653,
+      "ctk_bytes_for_same_files": 13649,
+      "engine": "zopflipng-m",
+      "losses": 0,
+      "ties": 8,
+      "total_ms": 1418,
+      "valid_files": 10,
+      "wins": 2
+    }
+  ],
+  "comparison_complete": true,
+  "environment": {
+    "arch": "aarch64",
+    "os": "macos"
+  },
+  "files": [
+    {
+      "baselines": [
+        {
+          "bytes": 81,
+          "elapsed_ms": 8,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 79,
+          "elapsed_ms": 16,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 80,
+          "elapsed_ms": 42,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6-zopfli",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 81,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 81,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 81,
+            "elapsed_ms": 2,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 79,
+            "elapsed_ms": 5,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 99,
+            "elapsed_ms": 0,
+            "engine": "palette-frequency",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 99,
+            "elapsed_ms": 0,
+            "engine": "palette-luma",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 80,
+            "elapsed_ms": 44,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 56,
+      "input": "corpus/checker.png",
+      "input_bytes": 259,
+      "output_bytes": 79,
+      "peak_rss_bytes": null,
+      "sha256": "5f20550ee8c4a4cbf4c5db8a4174f22e6bc08e7028f8e774a06f9c0ec420557c"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 158,
+          "elapsed_ms": 1,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 158,
+          "elapsed_ms": 2,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 158,
+          "elapsed_ms": 98,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o2",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 158,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 158,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 158,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 158,
+            "elapsed_ms": 2,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 158,
+            "elapsed_ms": 110,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 114,
+      "input": "corpus/gamma-text.png",
+      "input_bytes": 180,
+      "output_bytes": 158,
+      "peak_rss_bytes": null,
+      "sha256": "9e76d2120b930bfc3c924dd11a4d71601a8f8fc21ae47ec33fb2f36bc8ae2107"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 136,
+          "elapsed_ms": 46,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 136,
+          "elapsed_ms": 89,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 136,
+          "elapsed_ms": 231,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o4",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 177,
+            "elapsed_ms": 1,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 136,
+            "elapsed_ms": 4,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 136,
+            "elapsed_ms": 41,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 136,
+            "elapsed_ms": 78,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 136,
+            "elapsed_ms": 194,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 320,
+      "input": "corpus/gradient.png",
+      "input_bytes": 12073,
+      "output_bytes": 136,
+      "peak_rss_bytes": null,
+      "sha256": "1bdbbed96b508fb7fde240e092b59b127322a4e1bffc34ee5e34b63506b023f0"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 75,
+          "elapsed_ms": 0,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 74,
+          "elapsed_ms": 1,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 74,
+          "elapsed_ms": 13,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6-zopfli",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 75,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 75,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 75,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 74,
+            "elapsed_ms": 1,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 80,
+            "elapsed_ms": 0,
+            "engine": "palette-frequency",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 80,
+            "elapsed_ms": 0,
+            "engine": "palette-luma",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 74,
+            "elapsed_ms": 14,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 18,
+      "input": "corpus/gray-1bit.png",
+      "input_bytes": 75,
+      "output_bytes": 74,
+      "peak_rss_bytes": null,
+      "sha256": "6c40100305f193dc68815eca039769aad3148d79431f47be245327dd0cd5cd73"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 129,
+          "elapsed_ms": 2,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 128,
+          "elapsed_ms": 6,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 128,
+          "elapsed_ms": 215,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6-zopfli",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 129,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 129,
+            "elapsed_ms": 1,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 129,
+            "elapsed_ms": 2,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 128,
+            "elapsed_ms": 6,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 129,
+            "elapsed_ms": 1,
+            "engine": "palette-frequency",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 129,
+            "elapsed_ms": 1,
+            "engine": "palette-luma",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 128,
+            "elapsed_ms": 205,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 220,
+      "input": "corpus/indexed.png",
+      "input_bytes": 174,
+      "output_bytes": 128,
+      "peak_rss_bytes": null,
+      "sha256": "e2d8a2640ece9221db31e917d59cd1f72d0acd2674b377cc48809a5f4643a486"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 12420,
+          "elapsed_ms": 4,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 12420,
+          "elapsed_ms": 10,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 12420,
+          "elapsed_ms": 38,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o2",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 12420,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 12420,
+            "elapsed_ms": 2,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 12420,
+            "elapsed_ms": 4,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 12420,
+            "elapsed_ms": 10,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 12420,
+            "elapsed_ms": 38,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 57,
+      "input": "corpus/noise.png",
+      "input_bytes": 14174,
+      "output_bytes": 12420,
+      "peak_rss_bytes": null,
+      "sha256": "b3e17b270dbe1b6583b54240f49f623f2d79df31719d0459c9dfc00bef011943"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 250,
+          "elapsed_ms": 18,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 251,
+          "elapsed_ms": 39,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 253,
+          "elapsed_ms": 108,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 266,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 253,
+            "elapsed_ms": 2,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 250,
+            "elapsed_ms": 18,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 251,
+            "elapsed_ms": 37,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 253,
+            "elapsed_ms": 97,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 157,
+      "input": "corpus/precision-16.png",
+      "input_bytes": 5786,
+      "output_bytes": 250,
+      "peak_rss_bytes": null,
+      "sha256": "53c2485ee14ae4e279a01682cf93f0f0f242e078a003b0fb1ec9f9b786b09709"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 86,
+          "elapsed_ms": 0,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 86,
+          "elapsed_ms": 2,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 86,
+          "elapsed_ms": 170,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o2",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 86,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 86,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 86,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 86,
+            "elapsed_ms": 2,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 86,
+            "elapsed_ms": 0,
+            "engine": "palette-frequency",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 86,
+            "elapsed_ms": 0,
+            "engine": "palette-luma",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 86,
+            "elapsed_ms": 169,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 173,
+      "input": "corpus/solid.png",
+      "input_bytes": 209,
+      "output_bytes": 86,
+      "peak_rss_bytes": null,
+      "sha256": "ad618fedd4c55ba6678c76b28c24620d2542b757d2c36d9c569af8674247270b"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 169,
+          "elapsed_ms": 39,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 166,
+          "elapsed_ms": 97,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 166,
+          "elapsed_ms": 259,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6-zopfli",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 172,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 169,
+            "elapsed_ms": 7,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 169,
+            "elapsed_ms": 38,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 166,
+            "elapsed_ms": 100,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 166,
+            "elapsed_ms": 268,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 416,
+      "input": "corpus/transparent-hidden-rgb.png",
+      "input_bytes": 5055,
+      "output_bytes": 166,
+      "peak_rss_bytes": null,
+      "sha256": "d1710856888e7bc03e6d58e020640c7753679507ab07191682efbbca6b173d30"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 155,
+          "elapsed_ms": 29,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 152,
+          "elapsed_ms": 71,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 152,
+          "elapsed_ms": 244,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6-zopfli",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 178,
+            "elapsed_ms": 2,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 156,
+            "elapsed_ms": 5,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 155,
+            "elapsed_ms": 31,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 152,
+            "elapsed_ms": 72,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 156,
+            "elapsed_ms": 5,
+            "engine": "palette-frequency",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 156,
+            "elapsed_ms": 5,
+            "engine": "palette-luma",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 152,
+            "elapsed_ms": 328,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 453,
+      "input": "corpus/ui-blocks.png",
+      "input_bytes": 287,
+      "output_bytes": 152,
+      "peak_rss_bytes": null,
+      "sha256": "6db11cd7c4045a9f275081c9e174188607049644f1056080904e2bd12abfeff2"
+    }
+  ],
+  "notes": [
+    "峰值 RSS 未在本报告测量，以 null 表示；内存预算为工作集预检，不是 RSS 硬上限。",
+    "字节数比较保留 original 候选；缺失、失败或预算未完成的基线不计入比较。",
+    "时间预算会在优化阶段边界检查；内置单次 DEFLATE 调用不能立即抢占。"
+  ],
+  "schema_version": 1,
+  "settings": {
+    "effort": "max",
+    "memory_bytes": 536870912,
+    "strip_metadata": false,
+    "time_limit_seconds": 1.0
+  },
+  "totals": {
+    "best_available_baseline_bytes_for_compared_files": 13649,
+    "compared_files": 10,
+    "ctk_bytes": 13649,
+    "ctk_bytes_for_compared_files": 13649,
+    "ctk_median_ms": 173,
+    "ctk_total_ms": 1984,
+    "failed": 0,
+    "improvement_over_available_baseline_bytes": 0,
+    "input_bytes": 38272,
+    "losses": 0,
+    "peak_rss_bytes": null,
+    "saved_bytes": 24623,
+    "saved_percent": 64.33685200668896,
+    "ties": 10,
+    "wins": 0
+  },
+  "versions": {
+    "ctk": "0.1.0",
+    "oxipng": "10.2.1 (locked)",
+    "zopflipng": "ZopfliPNG, a Portable Network Graphics (PNG) image optimizer."
+  },
+  "reproduction": {
+    "corpus": "scripts/generate-corpus.py; seed=20261028; 10 synthetic files",
+    "zopfli_commit": "df1517dd8518113a245e4d203a04b8a0e02ab493",
+    "zopflipng_sha256": "4d0df81e4ff7ae1dad10e9cce73d40b6d18ff39f3e8a8de325ab362ee92a2043",
+    "command": "CTK_ZOPFLIPNG=<zopflipng> ctk image benchmark artifacts/corpus --time-limit 1"
+  }
+}

@@ -1,0 +1,14 @@
+// 共享实现从这里导出，CLI 仅负责参数解析和输出。
+pub mod backend;
+pub mod cli;
+pub mod codec;
+pub mod files;
+pub mod id;
+pub mod image;
+pub mod io_args;
+pub mod key;
+pub mod sound;
+pub mod text;
+pub mod time;
+pub mod video;
+pub mod web;

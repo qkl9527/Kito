@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <title>Codi 可迪，编解码伙伴</title>
+  <g stroke="#303530" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m40 94-4 12-10-1m47-12 6 12 11-3M20 55l-10-4-4 6m93 2 11 7 4-6"/>
+    <rect x="21" y="19" width="78" height="77" rx="24" fill="#B7A6DE" transform="rotate(-5 60 58)"/>
+    <path d="M35 39c-5 0-6 2-5 9l1 7-4 5 5 4 1 8c0 6 2 8 7 7m44-44c5 0 6 2 7 8l1 8 5 4-4 5 1 8c1 6-1 8-6 9" stroke="#75649D" stroke-width="2.4"/>
+    <path d="M49 48v7m22-9v7" stroke-width="4.2"/>
+    <path d="M52 69c5 4 12 3 15-2"/>
+    <path d="m48 15 4-7m12 7 1-6"/>
+  </g>
+</svg>

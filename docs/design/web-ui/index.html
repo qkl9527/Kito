@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="description" content="Kito 奇托 Web UI 交互设计稿。各有所长，一起把事情做好。">
+    <title>Kito 奇托 · 你的工具小队</title>
+    <link rel="icon" href="assets/lumi.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">跳到主要内容</a>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="工具导航">
+        <a class="brand" href="#home" aria-label="Kito 奇托首页">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="brand-name">kito<span>奇托工具小队</span></span>
+        </a>
+        <nav id="navigation"></nav>
+        <div class="sidebar-bottom">
+          <button class="sidebar-help" data-action="about"><span data-icon="book"></span>认识 Kito<span data-icon="arrow-up-right"></span></button>
+          <div class="workspace-note"><span class="local-symbol" data-icon="monitor"></span><div><strong>本机工作空间</strong><span>Web UI 设计预览</span></div><span class="small-dot"></span></div>
+        </div>
+      </aside>
+      <div class="app-body">
+        <header class="topbar">
+          <button class="icon-button menu-toggle" aria-label="展开工具导航" aria-expanded="false" data-action="menu"><span data-icon="menu"></span></button>
+          <div class="breadcrumb"><span data-icon="grid"></span><span id="breadcrumb">工具小队</span></div>
+          <div class="topbar-right">
+            <button class="search-trigger" data-action="search" aria-label="搜索工具"><span data-icon="search"></span><span>找个工具，搭把手</span><kbd>⌘ K</kbd></button>
+            <button class="preview-badge" data-action="about"><span></span>交互设计稿</button>
+          </div>
+        </header>
+        <main id="main" tabindex="-1"></main>
+        <footer class="app-footer"><span>各有所长，一起把事情做好。</span><span>此设计稿未连接 Kito 处理服务</span></footer>
+      </div>
+    </div>
+    <button class="nav-backdrop" data-action="menu" aria-label="收起工具导航" hidden></button>
+    <dialog id="search-dialog" aria-labelledby="search-title">
+      <div class="dialog-top"><h2 id="search-title">想做点什么？</h2><button class="icon-button" data-action="close" aria-label="关闭搜索"><span data-icon="close"></span></button></div>
+      <label class="search-field"><span data-icon="search"></span><input id="tool-search" type="search" placeholder="搜索功能或伙伴，如：图片、Lumi" autocomplete="off" aria-label="搜索功能或伙伴"></label>
+      <div id="search-results"></div>
+      <p class="dialog-hint">功能名、中文名、英文名都可以找到伙伴。按 Esc 关闭。</p>
+    </dialog>
+    <dialog id="info-dialog" aria-labelledby="info-title"><div class="dialog-top"><h2 id="info-title">关于这份设计</h2><button class="icon-button" data-action="close" aria-label="关闭说明"><span data-icon="close"></span></button></div><div id="info-content"></div></dialog>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

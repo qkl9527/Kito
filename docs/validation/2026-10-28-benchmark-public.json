@@ -1,0 +1,377 @@
+{
+  "baselines": [
+    {
+      "bytes_including_original_fallback": 578,
+      "ctk_bytes_for_same_files": 570,
+      "engine": "oxipng-o6",
+      "losses": 0,
+      "ties": 0,
+      "total_ms": 26,
+      "valid_files": 3,
+      "wins": 3
+    },
+    {
+      "bytes_including_original_fallback": 570,
+      "ctk_bytes_for_same_files": 570,
+      "engine": "oxipng-o6-zopfli",
+      "losses": 0,
+      "ties": 3,
+      "total_ms": 48,
+      "valid_files": 3,
+      "wins": 0
+    },
+    {
+      "bytes_including_original_fallback": 570,
+      "ctk_bytes_for_same_files": 570,
+      "engine": "zopflipng-m",
+      "losses": 0,
+      "ties": 3,
+      "total_ms": 136,
+      "valid_files": 3,
+      "wins": 0
+    }
+  ],
+  "comparison_complete": false,
+  "environment": {
+    "arch": "aarch64",
+    "os": "macos"
+  },
+  "files": [
+    {
+      "baselines": [
+        {
+          "bytes": 163,
+          "elapsed_ms": 1,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 159,
+          "elapsed_ms": 4,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 159,
+          "elapsed_ms": 13,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6-zopfli",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 163,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 163,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 163,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 159,
+            "elapsed_ms": 4,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 159,
+            "elapsed_ms": 11,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 17,
+      "input": "public-corpus/basn0g01.png",
+      "input_bytes": 164,
+      "output_bytes": 159,
+      "peak_rss_bytes": null,
+      "sha256": "c23c1848002082e128f533dc3c24a49fc57329293cc1468cc9dc36339b1abcac"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 245,
+          "elapsed_ms": 18,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 243,
+          "elapsed_ms": 26,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 243,
+          "elapsed_ms": 73,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6-zopfli",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 254,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 245,
+            "elapsed_ms": 3,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 245,
+            "elapsed_ms": 17,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 243,
+            "elapsed_ms": 26,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 243,
+            "elapsed_ms": 73,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 121,
+      "input": "public-corpus/basn2c16.png",
+      "input_bytes": 302,
+      "output_bytes": 243,
+      "peak_rss_bytes": null,
+      "sha256": "71179d2905aadb86adc25de7f737869b52e80e154c5335f5e6b614942515b2d4"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 170,
+          "elapsed_ms": 7,
+          "engine": "oxipng-o6",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 168,
+          "elapsed_ms": 18,
+          "engine": "oxipng-o6-zopfli",
+          "error": null,
+          "valid": true
+        },
+        {
+          "bytes": 168,
+          "elapsed_ms": 50,
+          "engine": "zopflipng-m",
+          "error": null,
+          "valid": true
+        }
+      ],
+      "ctk": {
+        "engine": "oxipng-o6-zopfli",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 184,
+            "elapsed_ms": 0,
+            "engine": "oxipng-o2",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 171,
+            "elapsed_ms": 1,
+            "engine": "oxipng-o4",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 170,
+            "elapsed_ms": 7,
+            "engine": "oxipng-o6",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 168,
+            "elapsed_ms": 18,
+            "engine": "oxipng-o6-zopfli",
+            "error": null,
+            "valid": true
+          },
+          {
+            "bytes": 168,
+            "elapsed_ms": 60,
+            "engine": "zopflipng-m",
+            "error": null,
+            "valid": true
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 89,
+      "input": "public-corpus/basn6a08.png",
+      "input_bytes": 184,
+      "output_bytes": 168,
+      "peak_rss_bytes": null,
+      "sha256": "756a03364c02e3c9f85d6f4029eb3cef2488c081dc537d46e102bebcb9e02732"
+    },
+    {
+      "baselines": [
+        {
+          "bytes": 4779,
+          "elapsed_ms": 58,
+          "engine": "oxipng-o6",
+          "error": "候选改变了要求保留的元数据",
+          "valid": false
+        },
+        {
+          "bytes": 4672,
+          "elapsed_ms": 53,
+          "engine": "oxipng-o6-zopfli",
+          "error": "候选改变了要求保留的元数据",
+          "valid": false
+        },
+        {
+          "bytes": 4672,
+          "elapsed_ms": 149,
+          "engine": "zopflipng-m",
+          "error": "未知不可安全复制的 chunk 或文件签名：保留原文件",
+          "valid": false
+        }
+      ],
+      "ctk": {
+        "engine": "original",
+        "metadata_saved_bytes": 0,
+        "search_complete": true,
+        "trials": [
+          {
+            "bytes": 4789,
+            "elapsed_ms": 4,
+            "engine": "oxipng-o2",
+            "error": "候选改变了要求保留的元数据",
+            "valid": false
+          },
+          {
+            "bytes": 4779,
+            "elapsed_ms": 9,
+            "engine": "oxipng-o4",
+            "error": "候选改变了要求保留的元数据",
+            "valid": false
+          },
+          {
+            "bytes": 4779,
+            "elapsed_ms": 58,
+            "engine": "oxipng-o6",
+            "error": "候选改变了要求保留的元数据",
+            "valid": false
+          },
+          {
+            "bytes": 4672,
+            "elapsed_ms": 53,
+            "engine": "oxipng-o6-zopfli",
+            "error": "候选改变了要求保留的元数据",
+            "valid": false
+          },
+          {
+            "bytes": 4672,
+            "elapsed_ms": 169,
+            "engine": "zopflipng-m",
+            "error": "未知不可安全复制的 chunk 或文件签名：保留原文件",
+            "valid": false
+          }
+        ],
+        "warnings": []
+      },
+      "ctk_elapsed_ms": 296,
+      "input": "public-corpus/pngtest.png",
+      "input_bytes": 8831,
+      "output_bytes": 8831,
+      "peak_rss_bytes": null,
+      "sha256": "b7a468324556bf6924058acb0fb477320355da0d864728e614be83ffa6966148"
+    }
+  ],
+  "notes": [
+    "峰值 RSS 未在本报告测量，以 null 表示；内存预算为工作集预检，不是 RSS 硬上限。",
+    "字节数比较保留 original 候选；缺失、失败或预算未完成的基线不计入比较。",
+    "时间预算会在优化阶段边界检查；内置单次 DEFLATE 调用不能立即抢占。"
+  ],
+  "schema_version": 1,
+  "settings": {
+    "effort": "max",
+    "memory_bytes": 536870912,
+    "strip_metadata": false,
+    "time_limit_seconds": null
+  },
+  "totals": {
+    "best_available_baseline_bytes_for_compared_files": 570,
+    "compared_files": 3,
+    "ctk_bytes": 9401,
+    "ctk_bytes_for_compared_files": 570,
+    "ctk_median_ms": 121,
+    "ctk_total_ms": 523,
+    "failed": 0,
+    "improvement_over_available_baseline_bytes": 0,
+    "input_bytes": 9481,
+    "losses": 0,
+    "peak_rss_bytes": null,
+    "saved_bytes": 80,
+    "saved_percent": 0.8437928488556059,
+    "ties": 3,
+    "wins": 0
+  },
+  "versions": {
+    "ctk": "0.1.0",
+    "oxipng": "10.2.1 (locked)",
+    "zopflipng": "ZopfliPNG, a Portable Network Graphics (PNG) image optimizer."
+  },
+  "reproduction": {
+    "corpus": "scripts/download-public-corpus.py",
+    "zopfli_commit": "df1517dd8518113a245e4d203a04b8a0e02ab493",
+    "zopflipng_sha256": "4d0df81e4ff7ae1dad10e9cce73d40b6d18ff39f3e8a8de325ab362ee92a2043",
+    "command": "CTK_ZOPFLIPNG=<zopflipng> ctk image benchmark artifacts/public-corpus"
+  }
+}

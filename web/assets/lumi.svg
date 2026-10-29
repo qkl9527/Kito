@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <title>Lumi 露米，图片伙伴</title>
+  <g stroke="#303530" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M43 90l-4 14-10 1m45-15 5 13 10-2M25 64l-11 7-5-6m88-6 12-5 4 7"/>
+    <path d="M49 19c2-13 19-13 23-1 11-9 24 1 21 14 14 0 19 17 8 25 12 8 7 25-6 27 3 14-12 23-23 14-6 12-22 9-25-3-13 6-24-6-19-18-14-4-15-21-3-28-10-10-2-24 11-22 0-9 6-14 13-8Z" fill="#F3C95F"/>
+    <path d="M48 50v7m23-7v7" stroke-width="4.3"/>
+    <path d="M51 69c4 5 12 5 17-1"/>
+    <path d="M38 65h4m37-1h4" stroke="#D3973F" stroke-width="4"/>
+  </g>
+  <path d="m25 12 1-6m-11 11-6-2m91 83 6 4" stroke="#D6B153" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <title>Sumi 苏米，标识伙伴</title>
+  <g stroke="#303530" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m42 94-5 12-10-2m47-10 7 11 11-4M29 62l-15 2-4-7m82 4 13 6 5-6"/>
+    <path d="M39 28c0-12 9-20 21-20s21 8 21 20c0 7-5 12-9 17l5 18H43l5-18c-5-5-9-10-9-17Z" fill="#E5A082"/>
+    <path d="M39 58h43c7 0 12 6 12 13v21H25V72c0-8 6-14 14-14Z" fill="#E5A082"/>
+    <rect x="22" y="86" width="75" height="13" rx="6.5" fill="#C97959"/>
+    <path d="M48 66v6m23-6v6" stroke-width="4.2"/>
+    <path d="M55 79c3 2 7 2 10-1"/>
+  </g>
+</svg>
