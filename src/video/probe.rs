@@ -120,21 +120,12 @@ impl StreamInfo {
 /// 先确认文件类型，再打开以确认可读；只读取 metadata，不将视频整体装入内存。
 /// canonicalize 同时解析可读符号链接，并让带空格或以 '-' 开头的文件名保持为单个绝对路径参数。
 pub fn input_path(path: &Path) -> Result<PathBuf> {
-    let text = path.to_string_lossy();
-    let scheme = text.split_once(':').is_some_and(|(prefix, _)| {
-        prefix.len() > 1
-            && prefix
-                .chars()
-                .all(|c| c.is_ascii_alphanumeric() || matches!(c, '+' | '-' | '.'))
-    });
-    ensure!(
-        path.as_os_str() != "-" && !scheme && !text.starts_with("\\\\"),
-        "媒体输入只支持本地普通文件，不支持 URL 或 stdin：{}",
-        path.display()
-    );
+    validate_local_path_syntax(path)?;
     let absolute = path
         .canonicalize()
         .with_context(|| format!("无法访问媒体输入：{}", path.display()))?;
+    // 相对路径或符号链接解析后仍须指向本地路径，不能借此绕过网络/设备前缀检查。
+    validate_local_path_syntax(&absolute)?;
     ensure!(
         absolute.metadata()?.is_file(),
         "媒体输入必须是普通文件：{}",
@@ -142,6 +133,36 @@ pub fn input_path(path: &Path) -> Result<PathBuf> {
     );
     fs::File::open(&absolute).with_context(|| format!("媒体输入不可读：{}", path.display()))?;
     Ok(absolute)
+}
+
+fn validate_local_path_syntax(path: &Path) -> Result<()> {
+    let text = path.to_string_lossy();
+    let scheme = text.split_once(':').is_some_and(|(prefix, _)| {
+        prefix.len() > 1
+            && prefix
+                .chars()
+                .all(|c| c.is_ascii_alphanumeric() || matches!(c, '+' | '-' | '.'))
+    });
+    #[cfg(windows)]
+    let local_prefix = match path.components().next() {
+        Some(std::path::Component::Prefix(prefix)) => match prefix.kind() {
+            std::path::Prefix::Disk(_) => true,
+            // Windows canonicalize 产生 \\?\C:\...；这是本地盘符，不是 UNC 共享。
+            // 保留原始前缀以支持长路径，且不能同时放行 \\?\UNC、\\.\ 或其他设备命名空间。
+            std::path::Prefix::VerbatimDisk(_) => path.is_absolute(),
+            _ => false,
+        },
+        // 不完整的双反斜杠前缀也应在访问文件之前拒绝。
+        _ => !text.starts_with("\\\\"),
+    };
+    #[cfg(not(windows))]
+    let local_prefix = !text.starts_with("\\\\");
+    ensure!(
+        path.as_os_str() != "-" && !scheme && local_prefix,
+        "媒体输入只支持本地普通文件，不支持 URL 或 stdin：{}",
+        path.display()
+    );
+    Ok(())
 }
 
 fn run_backend(

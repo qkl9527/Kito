@@ -19,6 +19,69 @@ fn inputs_are_canonical_local_regular_files() {
 }
 
 #[test]
+fn canonical_media_paths_can_be_validated_again() {
+    let directory = tempfile::tempdir().unwrap();
+    // 输出验证、轨道时长探测都会再次传入规范化路径；Windows 此时使用 \\?\C:\ 前缀。
+    let file = directory.path().join(".kito-video-中文 with spaces.wav");
+    fs::write(&file, b"fixture").unwrap();
+    let canonical = file.canonicalize().unwrap();
+    #[cfg(windows)]
+    assert!(matches!(
+        canonical.components().next(),
+        Some(std::path::Component::Prefix(prefix))
+            if matches!(prefix.kind(), std::path::Prefix::VerbatimDisk(_))
+    ));
+
+    assert_eq!(probe::input_path(&canonical).unwrap(), canonical);
+    let first = probe::input_path(&file).unwrap();
+    assert_eq!(probe::input_path(&first).unwrap(), first);
+
+    // 放行本地扩展路径不等于放行目录；仍须通过普通文件检查。
+    let canonical_directory = directory.path().canonicalize().unwrap();
+    let error = probe::input_path(&canonical_directory).unwrap_err();
+    assert!(error.to_string().contains("媒体输入必须是普通文件"));
+}
+
+#[test]
+fn media_protocols_network_shares_and_devices_are_rejected_before_file_access() {
+    for input in [
+        "-",
+        "pipe:0",
+        "file:///C:/media.wav",
+        "https://example.invalid/media.wav",
+        "concat:first.wav|second.wav",
+        r"\\server\share\media.wav",
+        r"\\?\UNC\server\share\media.wav",
+        r"\\.\pipe\kito-media",
+        r"\\.\PhysicalDrive0",
+        r"\\?\GLOBALROOT\Device\HarddiskVolume1\media.wav",
+    ] {
+        let error = probe::input_path(Path::new(input)).unwrap_err();
+        assert!(
+            error.to_string().contains("媒体输入只支持本地普通文件"),
+            "应在访问文件之前拒绝 {input:?}：{error:#}"
+        );
+    }
+}
+
+#[cfg(windows)]
+#[test]
+fn windows_network_and_device_prefix_variants_are_rejected_before_file_access() {
+    for input in [
+        "//server/share/media.wav",
+        r"/\server\share\media.wav",
+        "//./pipe/kito-media",
+        r"\\?\C:media.wav",
+    ] {
+        let error = probe::input_path(Path::new(input)).unwrap_err();
+        assert!(
+            error.to_string().contains("媒体输入只支持本地普通文件"),
+            "应在访问文件之前拒绝 {input:?}：{error:#}"
+        );
+    }
+}
+
+#[test]
 fn playlist_cannot_open_an_unselected_local_segment() {
     let directory = tempfile::tempdir().unwrap();
     let segment = directory.path().join("private.ts");
