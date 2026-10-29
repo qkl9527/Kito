@@ -667,6 +667,8 @@ fn regression_audio_before_video_is_trimmed_to_the_video_origin() {
     };
     let temp = tempfile::tempdir().unwrap();
     let input = temp.path().join("early-audio.mp4");
+    // FFmpeg 6 的 MP4 默认 CFR 会在 0.4 秒偏移前补帧，使视频起点变为 0。
+    // 显式保留输入时间戳，保证各后端版本都生成真正“音轨早于画面”的素材。
     let generated = Command::new(&backends.ffmpeg)
         .args([
             "-v",
@@ -694,20 +696,31 @@ fn regression_audio_before_video_is_trimmed_to_the_video_origin() {
             "ultrafast",
             "-c:a",
             "aac",
+            "-fps_mode",
+            "passthrough",
             p(&input),
         ])
         .output()
         .unwrap();
     success(&generated);
     let original = backends.probe(&input);
-    close(
-        stream(&original, "video")["start_time"]
-            .as_str()
-            .unwrap()
-            .parse()
-            .unwrap(),
-        0.4,
-        0.02,
+    let video_start: f64 = stream(&original, "video")["start_time"]
+        .as_str()
+        .unwrap()
+        .parse()
+        .unwrap();
+    assert!(
+        (video_start - 0.4).abs() <= 0.02,
+        "fixture 视频必须从 0.4 秒开始，不能被补帧提前到 0: {original}"
+    );
+    let audio_start: f64 = stream(&original, "audio")["start_time"]
+        .as_str()
+        .unwrap()
+        .parse()
+        .unwrap();
+    assert!(
+        audio_start.abs() <= 0.02,
+        "fixture 音轨必须从 0 秒开始，才能验证视频起点前的音频被裁去: {original}"
     );
     let output = temp.path().join("compressed.mp4");
     let probe = backends.transform(&["video", "compress", p(&input)], &output);

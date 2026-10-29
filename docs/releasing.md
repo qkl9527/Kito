@@ -78,4 +78,4 @@ python3 scripts/release.py validate --tag v0.1.0
 
 测试覆盖版本拒绝、归档布局、执行权限、完整资产集、摘要损坏、已存在 Release、tag 移动、上传失败不公开，以及 prerelease 标记。测试中的 GitHub 操作全部由 fake 替代，不会发出真实发布请求。
 
-Runner 与 API 行为参考 [GitHub-hosted runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)、[upload-artifact v4](https://github.com/actions/upload-artifact/tree/v4)、[download-artifact v4](https://github.com/actions/download-artifact/tree/v4) 和 [GitHub Release REST API](https://docs.github.com/en/rest/releases/releases)。
+工作流使用 Node.js 24 版本的官方 Actions：`checkout@v7`、`setup-python@v7`、`upload-artifact@v7` 与 `download-artifact@v8`。Runner 与 API 行为参考 [GitHub-hosted runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)、[upload-artifact v7](https://github.com/actions/upload-artifact/tree/v7)、[download-artifact v8](https://github.com/actions/download-artifact/tree/v8) 和 [GitHub Release REST API](https://docs.github.com/en/rest/releases/releases)。
